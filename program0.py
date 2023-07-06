@@ -4,6 +4,7 @@ import os
 import keyboard
 from tkinter import *
 
+print("ctrl + shift + f9 เพื่อทำงาน")
 # Create a speech recognizer
 r = sr.Recognizer()
 
