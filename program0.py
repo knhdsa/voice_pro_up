@@ -23,10 +23,12 @@ def start():
             with sr.Microphone() as source:
                 audio = r.listen(source)
 
+
                 try:
                     text = r.recognize_google(audio, language='th')
 
                     print("Recognized Text:", text)  # Added print statement
+
 
                     if "เปิด Powerpoint" in text:
                         os.system('start POWERPNT.EXE')
@@ -47,3 +49,5 @@ def start():
                     print("ไม่สามารถรับรู้เสียงได้")
                 except sr.RequestError as e:
                     print("พบข้อผิดพลาดจากการร้องขอ:", str(e))
+
+start()
