@@ -2,7 +2,11 @@ import speech_recognition as sr
 import pyttsx3
 import os
 import keyboard
+import configparser
 from tkinter import *
+
+config = configparser.ConfigParser()
+config.read("config.ini")
 
 print("ctrl + shift + f9 เพื่อทำงาน")
 # Create a speech recognizer
@@ -45,6 +49,26 @@ def start():
 
                     if "เปิด Excel" in text:
                         os.system("start EXCEL.EXE")
+
+                    if "เปิด 1":
+                        program1 = config.get("program","program1")
+                        os.system(f"start {program1}")
+
+                    if "เปิด 2":
+                        program2 = config.get("program","program2")
+                        os.system(f"start {program2}")
+
+                    if "เปิด 3":
+                        program3 = config.get("program","program3")
+                        os.system(f"start {program3}")
+
+                    if "เปิด 4":
+                        program4 = config.get("program","program4")
+                        os.system(f"start {program4}")
+
+                    if "เปิด 5":
+                        program5 = config.get("program","program5")
+                        os.system(f"start {program5}")
 
                 except sr.UnknownValueError:
                     print("ไม่สามารถรับรู้เสียงได้")
