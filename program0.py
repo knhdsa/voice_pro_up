@@ -72,3 +72,5 @@ def run():
                     print("ไม่สามารถรับรู้เสียงได้")
                 except sr.RequestError as e:
                     print("พบข้อผิดพลาดจากการร้องขอ:", str(e))
+
+run()
