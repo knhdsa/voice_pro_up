@@ -5,8 +5,34 @@ import keyboard
 import configparser
 from tkinter import *
 
+config_file = "config.ini"
+
 config = configparser.ConfigParser()
-config.read("config.ini")
+
+def c_config_file(config_file):
+    config['program'] = {
+        'program1': '',
+        'program2': '',
+        'program3': '',
+        'program4': '',
+        'program5': ''
+    }
+
+    with open(config_file, 'w') as configfile:
+        config.write(configfile)
+
+if not os.path.isfile(config_file):
+    # เรียกใช้ฟังก์ชันเพื่อเขียนไฟล์ config
+    c_config_file(config_file)
+def ch2():
+    if os.path.isfile(config_file):
+        config.read(config_file)
+        ch1 = config.get("program", "program5")
+        if not ch1 == "*":
+            os.system("del config.ini")
+            c_config_file(config_file)
+
+ch2()
 
 print("ctrl + shift + f9 เพื่อทำงาน")
 # Create a speech recognizer
@@ -28,12 +54,10 @@ def start():
             with sr.Microphone() as source:
                 audio = r.listen(source)
 
-
                 try:
                     text = r.recognize_google(audio, language='th')
 
                     print("Recognized Text:", text)  # Added print statement
-
 
                     if "เปิด Powerpoint" in text:
                         os.system('start POWERPNT.EXE')
@@ -50,24 +74,25 @@ def start():
                     if "เปิด Excel" in text:
                         os.system("start EXCEL.EXE")
 
-                    if "เปิด 1":
-                        program1 = config.get("program","program1")
+                    if "เปิด 1" in text:
+                        program1 = config.get("program", "program1")
                         os.system(f"start {program1}")
 
-                    if "เปิด 2":
-                        program2 = config.get("program","program2")
+                    if "เปิด 2" in text:
+                        program2 = config.get("program", "program2")
                         os.system(f"start {program2}")
 
-                    if "เปิด 3":
-                        program3 = config.get("program","program3")
+                    if "เปิด 3" in text:
+                        program3 = config.get("program", "program3")
                         os.system(f"start {program3}")
 
-                    if "เปิด 4":
-                        program4 = config.get("program","program4")
+                    if "เปิด 4" in text:
+                        program4 = config.get("program", "program4")
                         os.system(f"start {program4}")
 
-                    if "เปิด 5":
-                        program5 = config.get("program","program5")
+                    if "เปิด 5" in text:
+                        ch2()
+                        program5 = config.get("program", "program5")
                         os.system(f"start {program5}")
 
                 except sr.UnknownValueError:
