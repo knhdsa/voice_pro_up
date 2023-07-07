@@ -8,8 +8,10 @@ from tkinter import *
 config_file = "config.ini"
 
 config = configparser.ConfigParser()
+config.read(config_file)
 
-def c_config_file(config_file):
+if not os.path.isfile(config_file):
+    # สร้างไฟล์ config.ini หากยังไม่มี
     config['program'] = {
         'program1': '',
         'program2': '',
@@ -17,22 +19,8 @@ def c_config_file(config_file):
         'program4': '',
         'program5': ''
     }
-
     with open(config_file, 'w') as configfile:
         config.write(configfile)
-
-if not os.path.isfile(config_file):
-    # เรียกใช้ฟังก์ชันเพื่อเขียนไฟล์ config
-    c_config_file(config_file)
-def ch2():
-    if os.path.isfile(config_file):
-        config.read(config_file)
-        ch1 = config.get("program", "program5")
-        if not ch1 == "*":
-            os.system("del config.ini")
-            c_config_file(config_file)
-
-ch2()
 
 print("ctrl + shift + f9 เพื่อทำงาน")
 # Create a speech recognizer
@@ -56,7 +44,6 @@ def start():
 
                 try:
                     text = r.recognize_google(audio, language='th')
-
                     print("Recognized Text:", text)  # Added print statement
 
                     if "เปิด Powerpoint" in text:
@@ -91,7 +78,6 @@ def start():
                         os.system(f"start {program4}")
 
                     if "เปิด 5" in text:
-                        ch2()
                         program5 = config.get("program", "program5")
                         os.system(f"start {program5}")
 
