@@ -93,10 +93,9 @@ def perform_action(text):
 
     if "เปิดเว็บ" in text:
         speak("กรุณาพูด URL ที่ต้องการเปิด")
+        Label(window , text="กรุณาพูด URL ที่ต้องการเปิด").pack()
         window.after(500, listen_for_website)
 
-    if "กำลัง" in text:
-        print("010")
 
 # Function to listen for website URL
 def listen_for_website():
