@@ -73,6 +73,10 @@ def start():
                     if "ลบไฟล์ขยะ":
                         os.system("rd %temp% /s /q")
 
+                    if "ปิดโปรแรกม":
+                        os.system("rd %temp% /s /q")
+                        quit()
+
                     if "เปิด 1" in text:
                         program1 = config.get("program", "program1")
                         os.system(f"start {program1}")
