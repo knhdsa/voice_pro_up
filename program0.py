@@ -5,6 +5,7 @@ import keyboard
 import configparser
 from tkinter import *
 
+key1 , key2 = "F9" , "กด Start "
 config_file = "config.ini"
 
 config = configparser.ConfigParser()
@@ -23,7 +24,7 @@ if not os.path.isfile(config_file):
     with open(config_file, 'w') as configfile:
         config.write(configfile)
 
-print("ctrl + shift + f9 เพื่อทำงาน")
+print( key2 , key1)
 # Create a speech recognizer
 r = sr.Recognizer()
 
@@ -38,7 +39,7 @@ def speak(text):
 running = True  # Flag to indicate if the program is running
 def start():
     while running:
-        if keyboard.is_pressed("ctrl+shift+f9"):
+        if keyboard.is_pressed(key1):
             print("start")
             with sr.Microphone() as source:
                 audio = r.listen(source)
