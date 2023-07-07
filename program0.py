@@ -13,6 +13,7 @@ config.read(config_file)
 if not os.path.isfile(config_file):
     # สร้างไฟล์ config.ini หากยังไม่มี
     config['program'] = {
+        'discord': 'C:\Users\Kndsa-Win\AppData\Local\Discord\Update.exe --processStart Discord.exe',
         'program1': '',
         'program2': '',
         'program3': '',
@@ -56,7 +57,8 @@ def start():
                         os.system("start https://youtube.com")
 
                     if "เปิด discord" in text or "เปิดดิสคอร์ด" in text:
-                        os.system('start discord')
+                        discord = config.get("program","discord")
+                        os.system(f'start {discord}')
 
                     if "เปิด Excel" in text:
                         os.system("start EXCEL.EXE")
