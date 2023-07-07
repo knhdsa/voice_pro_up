@@ -1,8 +1,10 @@
 import requests
 import speech_recognition as sr
-import pyttsx3
+from gtts import gTTS
 import os
-import keyboard
+import configparser
+import threading
+from playsound import playsound
 from tkinter import *
 
 print("กำลังโหลดอยู่")
