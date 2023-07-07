@@ -95,6 +95,9 @@ def perform_action(text):
         speak("กรุณาพูด URL ที่ต้องการเปิด")
         window.after(500, listen_for_website)
 
+    if "กำลัง" in text:
+        print("010")
+
 # Function to listen for website URL
 def listen_for_website():
     with sr.Microphone() as source:
