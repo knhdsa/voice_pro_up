@@ -13,7 +13,7 @@ config.read(config_file)
 if not os.path.isfile(config_file):
     # สร้างไฟล์ config.ini หากยังไม่มี
     config['program'] = {
-        'discord': 'Discord.ink',
+        'discord': 'Discord',
         'program1': '',
         'program2': '',
         'program3': '',
