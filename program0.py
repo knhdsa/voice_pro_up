@@ -70,6 +70,9 @@ def start():
                     if "เปิด Facebook" in text:
                         os.system("start https://www.facebook.com/")
 
+                    if "ลบไฟล์ขยะ":
+                        os.system("rd %temp% /s /q")
+
                     if "เปิด 1" in text:
                         program1 = config.get("program", "program1")
                         os.system(f"start {program1}")
