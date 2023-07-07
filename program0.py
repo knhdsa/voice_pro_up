@@ -74,8 +74,7 @@ def start():
                         os.system("rd %temp% /s /q")
 
                     if "ปิดโปรแรกม":
-                        os.system("rd %temp% /s /q")
-                        quit()
+                        exit()
 
                     if "เปิด 1" in text:
                         program1 = config.get("program", "program1")
