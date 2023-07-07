@@ -102,6 +102,7 @@ def start():
                         with sr.Microphone() as source:
                             print("https อะไร")
                             time.sleep(1)
+                            print("เริ่มพูด")
                             audio = r.listen(source)
                             
                             r1 = sr.Recognizer()
