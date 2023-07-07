@@ -1,9 +1,5 @@
 import requests
 import speech_recognition as sr
-import pyttsx3
-import os
-import keyboard
-from tkinter import *
 
 print("กำลังโหลดอยู่")
 # URL ของไฟล์โค้ดที่ต้องการดาวน์โหลด
