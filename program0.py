@@ -3,6 +3,7 @@ import pyttsx3
 import os
 import keyboard
 import configparser
+import time
 from tkinter import *
 
 key1 , key2 = "F9" , "กด Start "
@@ -70,10 +71,10 @@ def start():
                     if "เปิด Facebook" in text:
                         os.system("start https://www.facebook.com/")
 
-                    if "ลบไฟล์ขยะ":
+                    if "ลบไฟล์ขยะ" in text:
                         os.system("rd %temp% /s /q")
 
-                    if "ปิดโปรแรกม":
+                    if "ปิดโปรแรกม" in text:
                         exit()
 
                     if "เปิด 1" in text:
@@ -95,6 +96,19 @@ def start():
                     if "เปิด 5" in text:
                         program5 = config.get("program", "program5")
                         os.system(f"start {program5}")
+
+                    if "เปิดเว็บ" in text:
+                        
+                        with sr.Microphone() as source:
+                            print("https อะไร")
+                            time.sleep(1)
+                            audio = r.listen(source)
+                            
+                            r1 = sr.Recognizer()
+                            text1 = r1.recognize_google(audio, language='th')
+                            
+                            os.system(f"start https://{text1}")
+                            print("Recognized Text:", text1)
 
                 except sr.UnknownValueError:
                     print("ไม่สามารถรับรู้เสียงได้")
