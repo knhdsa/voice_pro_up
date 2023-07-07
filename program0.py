@@ -67,6 +67,9 @@ def start():
                     if "ปิดแชท gpt" in text:
                         os.system("start https://chat.openai.com/")
 
+                    if "เปิด Facebook" in text:
+                        os.system("start https://www.facebook.com/")
+
                     if "เปิด 1" in text:
                         program1 = config.get("program", "program1")
                         os.system(f"start {program1}")
