@@ -130,8 +130,11 @@ def start_listening():
     threading.Thread(target=listening_thread).start()
 
 # Create GUI elements
-start_button = Button(window, text="Start", command=start_listening)
+start_button = Button(window, text="Start", font=25 ,command=start_listening)
 start_button.pack(pady=20)
+
+Label1 = Label(window , text="" , font=25).pack()
+Label1.pack()
 
 # Start the GUI event loop
 window.mainloop()
