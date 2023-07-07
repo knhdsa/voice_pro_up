@@ -6,6 +6,8 @@ import threading
 from playsound import playsound
 from tkinter import *
 
+
+
 # Create a speech recognizer
 r = sr.Recognizer()
 
@@ -13,6 +15,19 @@ r = sr.Recognizer()
 config_file = "config.ini"
 config = configparser.ConfigParser()
 config.read(config_file)
+
+if not os.path.isfile(config_file):
+    # สร้างไฟล์ config.ini หากยังไม่มี
+    config['program'] = {
+        'discord': 'Discord',
+        'program1': '',
+        'program2': '',
+        'program3': '',
+        'program4': '',
+        'program5': ''
+    }
+    with open(config_file, 'w') as configfile:
+        config.write(configfile)
 
 # Create a GUI window
 window = Tk()
