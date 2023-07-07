@@ -13,7 +13,7 @@ config.read(config_file)
 if not os.path.isfile(config_file):
     # สร้างไฟล์ config.ini หากยังไม่มี
     config['program'] = {
-        'discord': 'C:\Users\Kndsa-Win\AppData\Local\Discord\Update.exe --processStart Discord.exe',
+        'discord': 'Discord.ink',
         'program1': '',
         'program2': '',
         'program3': '',
