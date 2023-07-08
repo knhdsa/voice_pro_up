@@ -7,7 +7,6 @@ from playsound import playsound
 from tkinter import *
 
 
-
 # Create a speech recognizer
 r = sr.Recognizer()
 
@@ -133,7 +132,7 @@ def start_listening():
 start_button = Button(window, text="Start", font=25 ,command=start_listening)
 start_button.pack(pady=20)
 
-Label1 = Label(window , text="" , font=25).pack()
+Label1 = Label(window , text="" , font=25)
 Label1.pack()
 
 # Start the GUI event loop
