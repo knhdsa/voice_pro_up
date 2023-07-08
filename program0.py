@@ -6,7 +6,6 @@ import threading
 from playsound import playsound
 from tkinter import *
 
-
 # Create a speech recognizer
 r = sr.Recognizer()
 
@@ -104,9 +103,11 @@ def listen_for_website():
         text = r.recognize_google(audio, language='th')
         os.system(f"start https://{text}")
     except sr.UnknownValueError:
-        speak("ไม่สามารถรับรู้เสียงได้")
+        speak1 = "ไม่สามารถรับรู้เสียงได้"
+        speak(speak1)
     except sr.RequestError as e:
-        speak(f"พบข้อผิดพลาดจากการร้องขอ: {str(e)}")
+        speak1 = "พบข้อผิดพลาดจากการร้องขอ"
+        speak(f"{speak1}: {str(e)}")
 
 # Function to start listening for voice commands
 def start_listening():
