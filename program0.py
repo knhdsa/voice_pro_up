@@ -1,4 +1,5 @@
 import speech_recognition as sr
+import time
 from gtts import gTTS
 import os
 import configparser
@@ -41,7 +42,7 @@ def speak(text):
 
 # Function to perform actions based on voice commands
 def perform_action(text):
-    if "เปิด Powerpoint" in text:
+    if "เปิด Powerpoint" in text or "เปิดพาวเวอร์พอยท์" in text:
         os.system('start POWERPNT.EXE')
 
     if "เปิด Word" in text:
@@ -57,7 +58,7 @@ def perform_action(text):
     if "เปิด Excel" in text:
         os.system("start EXCEL.EXE")
 
-    if "ปิดแชท gpt" in text:
+    if "เปิดแชท gpt" in text:
         os.system("start https://chat.openai.com/")
 
     if "เปิด Facebook" in text:
@@ -90,10 +91,17 @@ def perform_action(text):
         os.system(f"start {program5}")
 
     if "เปิดเว็บ" in text:
-        speak("กรุณาพูด URL ที่ต้องการเปิด")
-        Label(window , text="กรุณาพูด URL ที่ต้องการเปิด").pack()
-        window.after(500, listen_for_website)
-
+        with sr.Microphone() as source:
+            Label1.config(text="https อะไร")
+            time.sleep(1)
+            Label1.config(text="เริ่มพูด")
+            audio = r.listen(source)
+            
+            r1 = sr.Recognizer()
+            text1 = r1.recognize_google(audio, language='th')
+            
+            os.system(f"start https://{text1}")
+            Label1.config(text=f"Recognized Text: {text1}")
 
 # Function to listen for website URL
 def listen_for_website():
@@ -105,12 +113,15 @@ def listen_for_website():
     except sr.UnknownValueError:
         speak1 = "ไม่สามารถรับรู้เสียงได้"
         speak(speak1)
+        Label1.config(text=speak1)
     except sr.RequestError as e:
         speak1 = "พบข้อผิดพลาดจากการร้องขอ"
         speak(f"{speak1}: {str(e)}")
+        Label1.config(text=speak1)
 
 # Function to start listening for voice commands
 def start_listening():
+    Label1.config(text="")
     speak("เริ่มต้นการรับคำสั่งด้วยเสียง")
     start_button["state"] = "disabled"
 
@@ -130,10 +141,11 @@ def start_listening():
     threading.Thread(target=listening_thread).start()
 
 # Create GUI elements
-start_button = Button(window, text="Start", font=25 ,command=start_listening)
+start_button = Button(window, text="Start", font=("Arial", 16), command=start_listening)
 start_button.pack(pady=20)
 
-Label1 = Label(window , text="" , font=25)
+
+Label1 = Label(window, text="", font=("Arial", 14))
 Label1.pack()
 
 # Start the GUI event loop
