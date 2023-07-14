@@ -91,17 +91,8 @@ def perform_action(text):
         os.system(f"start {program5}")
 
     if "เปิดเว็บ" in text:
-        with sr.Microphone() as source:
-            Label1.config(text="https อะไร")
-            time.sleep(1)
-            Label1.config(text="เริ่มพูด")
-            audio = r.listen(source)
-            
-            r1 = sr.Recognizer()
-            text1 = r1.recognize_google(audio, language='th')
-            
-            os.system(f"start https://{text1}")
-            Label1.config(text=f"Recognized Text: {text1}")
+        Label1.config(text="พูด URL ที่ต้องการเปิด")
+        listen_for_website()
 
 # Function to listen for website URL
 def listen_for_website():
@@ -110,6 +101,7 @@ def listen_for_website():
     try:
         text = r.recognize_google(audio, language='th')
         os.system(f"start https://{text}")
+        Label1.config(text=f"เปิดเว็บ: {text}")
     except sr.UnknownValueError:
         speak1 = "ไม่สามารถรับรู้เสียงได้"
         speak(speak1)
@@ -143,7 +135,6 @@ def start_listening():
 # Create GUI elements
 start_button = Button(window, text="Start", font=("Arial", 16), command=start_listening)
 start_button.pack(pady=20)
-
 
 Label1 = Label(window, text="", font=("Arial", 14))
 Label1.pack()
