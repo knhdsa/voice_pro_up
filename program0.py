@@ -44,28 +44,36 @@ def speak(text):
 def perform_action(text):
     if "เปิด Powerpoint" in text or "เปิดพาวเวอร์พอยท์" in text:
         os.system('start POWERPNT.EXE')
+        Label1.config(text="เปิด Powerpoint")
 
     if "เปิด Word" in text:
         os.system("start WINWORD.EXE")
+        Label1.config(text="เปิด Word")
 
     if "เปิด YouTube" in text:
         os.system("start https://youtube.com")
+        Label1.config(text="เปิด YouTube")
 
     if "เปิด discord" in text or "เปิดดิสคอร์ด" in text:
         discord = config.get("program", "discord")
         os.system(f'start {discord}')
+        Label1.config(text="เปิด Discord")
 
     if "เปิด Excel" in text:
         os.system("start EXCEL.EXE")
+        Label1.config(text="เปิด Excel")
 
     if "เปิดแชท gpt" in text:
         os.system("start https://chat.openai.com/")
+        Label1.config(text="เปิดแชท GPT")
 
     if "เปิด Facebook" in text:
         os.system("start https://www.facebook.com/")
+        Label1.config(text="เปิด Facebook")
 
     if "ลบไฟล์ขยะ" in text:
         os.system("rd %temp% /s /q")
+        Label1.config(text="ลบไฟล์ขยะ")
 
     if "ปิดโปรแกรม" in text:
         exit()
@@ -73,22 +81,27 @@ def perform_action(text):
     if "เปิด 1" in text:
         program1 = config.get("program", "program1")
         os.system(f"start {program1}")
+        Label1.config(text="เปิดโปรแกรม 1")
 
     if "เปิด 2" in text:
         program2 = config.get("program", "program2")
         os.system(f"start {program2}")
+        Label1.config(text="เปิดโปรแกรม 2")
 
     if "เปิด 3" in text:
         program3 = config.get("program", "program3")
         os.system(f"start {program3}")
+        Label1.config(text="เปิดโปรแกรม 3")
 
     if "เปิด 4" in text:
         program4 = config.get("program", "program4")
         os.system(f"start {program4}")
+        Label1.config(text="เปิดโปรแกรม 4")
 
     if "เปิด 5" in text:
         program5 = config.get("program", "program5")
         os.system(f"start {program5}")
+        Label1.config(text="เปิดโปรแกรม 5")
 
     if "เปิดเว็บ" in text:
         Label1.config(text="พูด URL ที่ต้องการเปิด")
@@ -111,7 +124,7 @@ def listen_for_website():
         speak(f"{speak1}: {str(e)}")
         Label1.config(text=speak1)
 
-# Function to start listening for voice commands
+# Function to start listening for voice commands0
 def start_listening():
     Label1.config(text="")
     speak("เริ่มต้นการรับคำสั่งด้วยเสียง")
