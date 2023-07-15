@@ -83,7 +83,7 @@ def perform_action(text):
         Label1.config(text="เปิด Facebook")
 
     elif "ลบไฟล์ขยะ" in text:
-        os.system("rd %temp% /s /q")
+        os.system("del /q/f/s %TEMP%\*")
         Label1.config(text="ลบไฟล์ขยะ")
 
     elif "ปิดโปรแกรม" in text:
@@ -180,9 +180,19 @@ def start_listening():
     
     threading.Thread(target=listening_thread).start()
 
+# Function to delete temporary files
+def delete_temp_files():
+    os.system("del /q/f/s %TEMP%\*")
+    Label1.config(text="ลบไฟล์ขยะ")
+    speak("ลบไฟล์ขยะ")
+
+
 # Create GUI elements
 start_button = Button(window, text="Start", width=25, font=("Arial", 16), command=start_listening, foreground="white", background="blue")
 start_button.pack(pady=20)
+
+delete_temp_button = Button(window, text="ลบไฟล์ขยะ %temp%", width=25, font=("Arial", 16), command=delete_temp_files, foreground="white", background="red")
+delete_temp_button.pack(pady=10)
 
 Label1 = Label(window, text="", font=("Arial", 14), foreground="black")
 Label1.pack()
