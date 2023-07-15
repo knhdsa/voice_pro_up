@@ -186,7 +186,6 @@ def delete_temp_files():
     Label1.config(text="ลบไฟล์ขยะ")
     speak("ลบไฟล์ขยะ")
 
-
 # Create GUI elements
 start_button = Button(window, text="Start", width=25, font=("Arial", 16), command=start_listening, foreground="white", background="blue")
 start_button.pack(pady=20)
