@@ -6,6 +6,7 @@ import configparser
 import threading
 from playsound import playsound
 from tkinter import *
+import keyboard
 
 # Create a speech recognizer
 r = sr.Recognizer()
@@ -31,7 +32,15 @@ if not os.path.isfile(config_file):
 # Create a GUI window
 window = Tk()
 window.title("Voice Control")
-window.geometry("300x200")
+
+Label2 = Label(window, text="", font=("Arial", 14), foreground="blue")
+Label2.pack()
+
+Label3 = Label(window, text="รายการคำสั่งที่พูดออกมา:", font=("Arial", 14), foreground="black")
+Label3.pack()
+
+command_list = Listbox(window, height=10, width=40, foreground="black", background="white")
+command_list.pack()
 
 # Function to convert text to speech and play the audio
 def speak(text):
@@ -42,70 +51,79 @@ def speak(text):
 
 # Function to perform actions based on voice commands
 def perform_action(text):
+    command_list.insert(END, text)  # Add spoken command to the listbox
+
     if "เปิด Powerpoint" in text or "เปิดพาวเวอร์พอยท์" in text:
         os.system('start POWERPNT.EXE')
         Label1.config(text="เปิด Powerpoint")
 
-    if "เปิด Word" in text:
+    elif "เปิด Word" in text:
         os.system("start WINWORD.EXE")
         Label1.config(text="เปิด Word")
 
-    if "เปิด YouTube" in text:
+    elif "เปิด YouTube" in text:
         os.system("start https://youtube.com")
         Label1.config(text="เปิด YouTube")
 
-    if "เปิด discord" in text or "เปิดดิสคอร์ด" in text:
+    elif "เปิด discord" in text or "เปิดดิสคอร์ด" in text:
         discord = config.get("program", "discord")
         os.system(f'start {discord}')
         Label1.config(text="เปิด Discord")
 
-    if "เปิด Excel" in text:
+    elif "เปิด Excel" in text:
         os.system("start EXCEL.EXE")
         Label1.config(text="เปิด Excel")
 
-    if "เปิดแชท gpt" in text:
+    elif "เปิดแชท gpt" in text:
         os.system("start https://chat.openai.com/")
         Label1.config(text="เปิดแชท GPT")
 
-    if "เปิด Facebook" in text:
+    elif "เปิด Facebook" in text:
         os.system("start https://www.facebook.com/")
         Label1.config(text="เปิด Facebook")
 
-    if "ลบไฟล์ขยะ" in text:
+    elif "ลบไฟล์ขยะ" in text:
         os.system("rd %temp% /s /q")
         Label1.config(text="ลบไฟล์ขยะ")
 
-    if "ปิดโปรแกรม" in text:
+    elif "ปิดโปรแกรม" in text:
         exit()
 
-    if "เปิด 1" in text:
+    elif "เปิด 1" in text:
         program1 = config.get("program", "program1")
         os.system(f"start {program1}")
         Label1.config(text="เปิดโปรแกรม 1")
 
-    if "เปิด 2" in text:
+    elif "เปิด 2" in text:
         program2 = config.get("program", "program2")
         os.system(f"start {program2}")
         Label1.config(text="เปิดโปรแกรม 2")
 
-    if "เปิด 3" in text:
+    elif "เปิด 3" in text:
         program3 = config.get("program", "program3")
         os.system(f"start {program3}")
         Label1.config(text="เปิดโปรแกรม 3")
 
-    if "เปิด 4" in text:
+    elif "เปิด 4" in text:
         program4 = config.get("program", "program4")
         os.system(f"start {program4}")
         Label1.config(text="เปิดโปรแกรม 4")
 
-    if "เปิด 5" in text:
+    elif "เปิด 5" in text:
         program5 = config.get("program", "program5")
         os.system(f"start {program5}")
         Label1.config(text="เปิดโปรแกรม 5")
 
-    if "เปิดเว็บ" in text:
+    elif "เปิดเว็บ" in text:
         Label1.config(text="พูด URL ที่ต้องการเปิด")
         listen_for_website()
+
+    elif "หยุด" in text:
+        global is_listening
+        is_listening = False
+        Label1.config(text="หยุดการรับคำสั่งด้วยเสียง")
+        speak("หยุดการรับคำสั่งด้วยเสียง")
+        
 
 # Function to listen for website URL
 def listen_for_website():
@@ -115,41 +133,58 @@ def listen_for_website():
         text = r.recognize_google(audio, language='th')
         os.system(f"start https://{text}")
         Label1.config(text=f"เปิดเว็บ: {text}")
+        start_button["state"] = "normal"
+        Label2.config(text="เริ่มต้นการรับคำสั่งด้วยเสียง")
+        speak(f"เปิดเว็บ: {text}")
     except sr.UnknownValueError:
         speak1 = "ไม่สามารถรับรู้เสียงได้"
         speak(speak1)
         Label1.config(text=speak1)
+        start_button["state"] = "normal"
+        Label2.config(text="ยังเริ่มต้นการรับคำสั่งด้วยเสียง")
     except sr.RequestError as e:
         speak1 = "พบข้อผิดพลาดจากการร้องขอ"
         speak(f"{speak1}: {str(e)}")
         Label1.config(text=speak1)
+        start_button["state"] = "normal"
+        Label2.config(text="ยังเริ่มต้นการรับคำสั่งด้วยเสียง")
 
-# Function to start listening for voice commands0
+# Function to start listening for voice commands
 def start_listening():
-    Label1.config(text="")
-    speak("เริ่มต้นการรับคำสั่งด้วยเสียง")
+    
+    global is_listening
+    is_listening = True
+    Label2.config(text="เริ่มต้นการรับคำสั่งด้วยเสียง")
     start_button["state"] = "disabled"
+    speak("เริ่มต้นการรับคำสั่งด้วยเสียง")
+    Label2.config(text="เริ่มต้นการรับคำสั่งด้วยเสียง")
 
     def listening_thread():
-        with sr.Microphone() as source:
-            audio = r.listen(source)
-        try:
-            text = r.recognize_google(audio, language='th')
-            perform_action(text)
-        except sr.UnknownValueError:
-            speak("ไม่สามารถรับรู้เสียงได้")
-        except sr.RequestError as e:
-            speak(f"พบข้อผิดพลาดจากการร้องขอ: {str(e)}")
-        finally:
-            start_button["state"] = "normal"
+        while is_listening:
+            with sr.Microphone() as source:
+                audio = r.listen(source)
+            try:
+                text = r.recognize_google(audio, language='th')
+                perform_action(text)
+            except sr.UnknownValueError:
+                speak("ไม่สามารถรับรู้เสียงได้")
+                start_button["state"] = "normal"
+                Label2.config(text="ยังเริ่มต้นการรับคำสั่งด้วยเสียง")
+            except sr.RequestError as e:
+                speak(f"พบข้อผิดพลาดจากการร้องขอ: {str(e)}")
+                start_button["state"] = "normal"
+                Label2.config(text="ยังเริ่มต้นการรับคำสั่งด้วยเสียง")
+            finally:
+                start_button["state"] = "normal"
 
+    
     threading.Thread(target=listening_thread).start()
 
 # Create GUI elements
-start_button = Button(window, text="Start", font=("Arial", 16), command=start_listening)
+start_button = Button(window, text="Start", width=25, font=("Arial", 16), command=start_listening, foreground="white", background="blue")
 start_button.pack(pady=20)
 
-Label1 = Label(window, text="", font=("Arial", 14))
+Label1 = Label(window, text="", font=("Arial", 14), foreground="black")
 Label1.pack()
 
 # Start the GUI event loop
