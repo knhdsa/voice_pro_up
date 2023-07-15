@@ -32,8 +32,9 @@ if not os.path.isfile(config_file):
 # Create a GUI window
 window = Tk()
 window.title("Voice Control")
+window.iconbitmap("icon.ico")
 
-Label2 = Label(window, text="", font=("Arial", 14), foreground="blue")
+Label2 = Label(window, text="ยังเริ่มต้นการรับคำสั่งด้วยเสียง", font=("Arial", 14), foreground="blue")
 Label2.pack()
 
 Label3 = Label(window, text="รายการคำสั่งที่พูดออกมา:", font=("Arial", 14), foreground="black")
@@ -193,7 +194,7 @@ start_button.pack(pady=20)
 delete_temp_button = Button(window, text="ลบไฟล์ขยะ %temp%", width=25, font=("Arial", 16), command=delete_temp_files, foreground="white", background="red")
 delete_temp_button.pack(pady=10)
 
-Label1 = Label(window, text="", font=("Arial", 14), foreground="black")
+Label1 = Label(window, text="status", font=("Arial", 14), foreground="black")
 Label1.pack()
 
 # Start the GUI event loop
