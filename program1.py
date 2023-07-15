@@ -1,9 +1,5 @@
-import requests
-import speech_recognition as sr
+import requests , speech_recognition as sr , os , configparser , threading
 from gtts import gTTS
-import os
-import configparser
-import threading
 from playsound import playsound
 from tkinter import *
 
