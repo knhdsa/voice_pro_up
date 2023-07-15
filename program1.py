@@ -14,7 +14,7 @@ def download_icon(url, save_path):
     with open(save_path, 'wb') as f:
         f.write(icon_data)
 
-if os.path.isfile("icon.ico"):
+if not os.path.isfile("icon.ico"):
     download_icon("https://raw.githubusercontent.com/knhdsa/icon-Knhdsa/main/channels4_profile.ico","icon.ico")
 
 # ดาวน์โหลดโค้ดจาก URL
