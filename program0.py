@@ -40,8 +40,6 @@ Label2.pack()
 Label3 = Label(window, text="รายการคำสั่งที่พูดออกมา:", font=("Arial", 14), foreground="black")
 Label3.pack()
 
-command_list = Listbox(window, height=10, width=40, foreground="black", background="white")
-command_list.pack()
 
 # Function to convert text to speech and play the audio
 def speak(text):
