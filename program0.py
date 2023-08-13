@@ -191,9 +191,6 @@ def delete_temp_files():
 start_button = Button(window, text="Start", width=25, font=("Arial", 16), command=start_listening, foreground="white", background="blue")
 start_button.pack(pady=20)
 
-delete_temp_button = Button(window, text="ลบไฟล์ขยะ %temp%", width=25, font=("Arial", 16), command=delete_temp_files, foreground="white", background="red")
-delete_temp_button.pack(pady=10)
-
 Label1 = Label(window, text="status", font=("Arial", 14), foreground="black")
 Label1.pack()
 
