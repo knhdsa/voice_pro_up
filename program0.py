@@ -34,15 +34,6 @@ window = Tk()
 window.title("Voice Control")
 window.iconbitmap("icon.ico")
 
-Label2 = Label(window, text="ยังเริ่มต้นการรับคำสั่งด้วยเสียง", font=("Arial", 14), foreground="blue")
-Label2.pack()
-
-Label3 = Label(window, text="รายการคำสั่งที่พูดออกมา:", font=("Arial", 14), foreground="black")
-Label3.pack()
-
-command_list = Listbox(window, height=10, width=40, foreground="black", background="white")
-command_list.pack()
-
 # Function to convert text to speech and play the audio
 def speak(text):
     tts = gTTS(text=text, lang="th")
@@ -151,14 +142,14 @@ def listen_for_website():
         Label2.config(text="ยังเริ่มต้นการรับคำสั่งด้วยเสียง")
 
 # Function to start listening for voice commands
-def start_listening():
-    
+def start_listening(label):
     global is_listening
+    
     is_listening = True
-    Label2.config(text="เริ่มต้นการรับคำสั่งด้วยเสียง")
+    label.config(text="เริ่มต้นการรับคำสั่งด้วยเสียง")
     start_button["state"] = "disabled"
     speak("เริ่มต้นการรับคำสั่งด้วยเสียง")
-    Label2.config(text="เริ่มต้นการรับคำสั่งด้วยเสียง")
+    label.config(text="เริ่มต้นการรับคำสั่งด้วยเสียง")
 
     def listening_thread():
         while is_listening:
@@ -170,15 +161,14 @@ def start_listening():
             except sr.UnknownValueError:
                 speak("ไม่สามารถรับรู้เสียงได้")
                 start_button["state"] = "normal"
-                Label2.config(text="ยังเริ่มต้นการรับคำสั่งด้วยเสียง")
+                label.config(text="ยังเริ่มต้นการรับคำสั่งด้วยเสียง")
             except sr.RequestError as e:
                 speak(f"พบข้อผิดพลาดจากการร้องขอ: {str(e)}")
                 start_button["state"] = "normal"
-                Label2.config(text="ยังเริ่มต้นการรับคำสั่งด้วยเสียง")
+                label.config(text="ยังเริ่มต้นการรับคำสั่งด้วยเสียง")
             finally:
                 start_button["state"] = "normal"
 
-    
     threading.Thread(target=listening_thread).start()
 
 # Function to delete temporary files
@@ -186,9 +176,19 @@ def delete_temp_files():
     os.system("del /q/f/s %TEMP%\*")
     Label1.config(text="ลบไฟล์ขยะ")
     speak("ลบไฟล์ขยะ")
+    
+Label2 = Label(window, text="ยังเริ่มต้นการรับคำสั่งด้วยเสียง", font=("Arial", 14), foreground="blue")
+Label2.pack()
+
+Label3 = Label(window, text="รายการคำสั่งที่พูดออกมา:", font=("Arial", 14), foreground="black")
+Label3.pack()
+
+command_list = Listbox(window, height=10, width=40, foreground="black", background="white")
+command_list.pack()
+
 
 # Create GUI elements
-start_button = Button(window, text="Start", width=25, font=("Arial", 16), command=start_listening, foreground="white", background="blue")
+start_button = Button(window, text="Start", width=25, font=("Arial", 16), command=lambda: start_listening(Label2), foreground="white", background="blue")
 start_button.pack(pady=20)
 
 delete_temp_button = Button(window, text="ลบไฟล์ขยะ %temp%", width=25, font=("Arial", 16), command=delete_temp_files, foreground="white", background="red")
